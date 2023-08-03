@@ -14,6 +14,7 @@ const VideoPlayer: FC<VideoPlayerProps> = ({ }) => {
     useEffect(() => {
         const video = videoRef.current;
         if (video) {
+            video.volume = 0.2;
             setVideoDuration(video.duration)
         }
 
@@ -57,7 +58,7 @@ const VideoPlayer: FC<VideoPlayerProps> = ({ }) => {
                     poster="/ai.jpg"
                     ref={videoRef}
                     className='w-full'
-                    // loop
+                    loop
                     // autoPlay
                     // muted
                     src='/video.mp4'
