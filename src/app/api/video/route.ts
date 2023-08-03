@@ -7,7 +7,7 @@ import path from 'node:path';
 // };
 
 
-export function getVideoStream(req: Request) {
+export function GET(req: Request) {
     const range = req.headers.get('range')
 
     if (!range) {
@@ -42,30 +42,31 @@ export function getVideoStream(req: Request) {
     return new Response(videoStream as any, { status: 206, headers })
 }
 
-export async function uploadVideoSteram(req: Request) {
-    // const bb = busboy({ headers: req.headers });
+// export async function uploadVideoSteram(req: Request) {
+// const bb = busboy({ headers: req.headers });
 
-    // bb.on("file", (_, file, info) => {
-    //     // auth-api.mp4
-    //     const fileName = info.filename;
-    //     const filePath = `./videos/${fileName}`;
+// bb.on("file", (_, file, info) => {
+//     // auth-api.mp4
+//     const fileName = info.filename;
+//     const filePath = `./videos/${fileName}`;
 
-    // const stream = createWriteStream(filePath)
+// const stream = createWriteStream(filePath)
 
-    //     file.pipe(stream);
-    // });
+//     file.pipe(stream);
+// });
 
-    // bb.on("close", () => {
-    //     res.writeHead(200, { Connection: "close" });
-    //     res.end(`That's the end`);
-    // });
+// bb.on("close", () => {
+//     res.writeHead(200, { Connection: "close" });
+//     res.end(`That's the end`);
+// });
 
-    // req.pipe(bb);
-    return;
-}
+// req.pipe(bb);
+// return;
+// }
 
 
-export { getVideoStream as GET, uploadVideoSteram as POST };
+// export { getVideoStream as GET };
+// export { getVideoStream as GET, uploadVideoSteram as POST };
 
 // import { Readable } from 'node:stream';
 // export default async function GET(req: Request, res: Response) {
