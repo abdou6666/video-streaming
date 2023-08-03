@@ -1,11 +1,10 @@
 import { NextResponse } from "next/server";
 import { createReadStream, createWriteStream, fstatSync, openSync } from 'node:fs';
 import path from 'node:path';
-// import busboy from 'busboy';
 
-export const config = {
-    runtime: "edge",
-};
+// export const config = {
+//     runtime: "edge",
+// };
 
 
 export function getVideoStream(req: Request) {
@@ -15,9 +14,9 @@ export function getVideoStream(req: Request) {
         return NextResponse.json('Range is missing', { status: 400 })
     }
 
-    const p = path.join(__dirname, '..', '..', '..', '..', '..', 'public', 'video.mp4')
+    const videoPath = path.join(__dirname, '..', '..', '..', '..', '..', 'public', 'video.mp4')
 
-    const file_fd = openSync(p, 'r');
+    const file_fd = openSync(videoPath, 'r');
 
     const videoSize = fstatSync(file_fd,).size;
 
@@ -34,7 +33,7 @@ export function getVideoStream(req: Request) {
         "Content-Type": "video/mp4",
     } as { [key: string]: string };
 
-    const videoStream = createReadStream(p, {
+    const videoStream = createReadStream(videoPath, {
         start,
         end
     })

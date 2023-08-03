@@ -1,6 +1,7 @@
 "use client"
 import { FC, useEffect, useRef, useState } from 'react'
 import VideoPlayerControlls from './VideoPlayerControlls'
+import axios from 'axios';
 interface VideoPlayerProps {
 
 }
@@ -10,6 +11,17 @@ const VideoPlayer: FC<VideoPlayerProps> = ({ }) => {
     const videoRef = useRef<HTMLVideoElement>(null)
     const [videoDuration, setVideoDuration] = useState<number | null>(null);
     const [videoProgress, setVideoProgress] = useState<number>(0);
+    const [chunks, setChunks] = useState([]);
+
+    const fetchChunks = async () => {
+        const res = await axios.get('http://localhost:3000/video', {
+            headers: {
+                "range": "1000"
+            }
+        });
+        console.log({ res })
+        setChunks(res.data)
+    }
 
     useEffect(() => {
         const video = videoRef.current;
@@ -22,7 +34,7 @@ const VideoPlayer: FC<VideoPlayerProps> = ({ }) => {
 
     useEffect(() => {
         if (isPaused) return;
-
+        fetchChunks();
         const currentTime = videoRef.current?.currentTime;
 
         if (videoDuration != null && currentTime != null) {
@@ -61,7 +73,7 @@ const VideoPlayer: FC<VideoPlayerProps> = ({ }) => {
                     loop
                     // autoPlay
                     // muted
-                    src='/video.mp4'
+                    src='http://localhost:3000/video'
                 >
                 </video>
             </div>
